@@ -1,0 +1,19 @@
+{
+  "name": "williamben-bot",
+  "version": "1.0.0",
+  "description": "A WilliamBen bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "WilliamBen",
+    "bot",
+    "discord"
+  ],
+  "repository": {
+    "git": "https://github.com/SBTopZZZ-LG/williamben-discordbot"
+  },
+  "author": "SBTopZZZ-LG",
+  "license": "UNLICENSED"
+}
