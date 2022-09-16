@@ -2,7 +2,7 @@
 node_modules
 
 # configs
-src/Configs
+# src/Configs
 
 # env vars
 .env
