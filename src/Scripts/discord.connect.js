@@ -17,5 +17,6 @@ const client = new Client({
 
 module.exports = async () => {
   await client.login(process.env.TOKEN);
+  console.log("Logged into Discord")
   return client;
 };
