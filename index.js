@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const { ActivityType, PresenceUpdateStatus } = require("discord.js");
 const { exec } = require("child_process");
+exec("chmod +rwx ./src/Utils/toh.out", () => { });
 
 // Constants
 const PORT = process.env.PORT || 3000;
