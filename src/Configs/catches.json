@@ -1,0 +1,108 @@
+{
+    "catches": [
+        {
+            "texts": [
+                "lmao"
+            ],
+            "emojis": [
+                "😂",
+                "🇱",
+                "🇲",
+                "🇦",
+                "🇴"
+            ],
+            "mustRepeat": false
+        },
+        {
+            "texts": [
+                "lmfao"
+            ],
+            "emojis": [
+                "🤣",
+                "🇱",
+                "🇲",
+                "🇫",
+                "🇦",
+                "🇴"
+            ],
+            "mustRepeat": false
+        },
+        {
+            "texts": [
+                "rofl"
+            ],
+            "emojis": [
+                "😂",
+                "🇷",
+                "🇴",
+                "🇫",
+                "🇱"
+            ],
+            "mustRepeat": false
+        },
+        {
+            "texts": [
+                "lol",
+                "xd"
+            ],
+            "emojis": [
+                "😂"
+            ],
+            "mustRepeat": true
+        },
+        {
+            "texts": [
+                "lawde",
+                "lode",
+                "laude",
+                "lodu",
+                "lavdya"
+            ],
+            "emojis": [
+                "🥒"
+            ],
+            "mustRepeat": true
+        },
+        {
+            "texts": [
+                "tru",
+                "true",
+                "sahi",
+                "correct",
+                "barobar"
+            ],
+            "emojis": [
+                "🇹",
+                "🇷",
+                "🇺",
+                "👍"
+            ],
+            "mustRepeat": true
+        },
+        {
+            "texts": [
+                "bsdk"
+            ],
+            "emojis": [
+                "🇧",
+                "🇸",
+                "🇩",
+                "🇰"
+            ],
+            "mustRepeat": true
+        },
+        {
+            "texts": [
+                "randi"
+            ],
+            "emojis": [
+                "🇷",
+                "🇦",
+                "🇳",
+                "🇩",
+                "🇮"
+            ],
+            "mustRepeat": true
+        }
+    ]
+}

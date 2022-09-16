@@ -2,6 +2,19 @@ require("dotenv").config();
 
 const { ActivityType, PresenceUpdateStatus } = require("discord.js");
 
+// Constants
+const PORT = process.env.PORT || 3000;
+const targetUserId = process.env.TARGET_USER_ID;
+const targetChannelId = process.env.TARGET_CHANNEL_ID;
+const targetChannelId2 = process.env.TARGET_CHANNEL_ID2;
+if (!targetUserId || !targetChannelId || !targetChannelId2) {
+  console.error("Cannot get env variables!");
+  process.exit(-1);
+}
+const presenceUpdateMinDuration = 20000; // 20 seconds
+const facts = require("./src/Configs/facts").facts;
+const catchText = require("./src/Configs/catches.json").catches;
+
 // Sleep
 const sleep = require("./src/Utils/sleep");
 
@@ -17,101 +30,6 @@ require("./src/Scripts/discord.connect")().then(async client => {
   app.use(express.json());
   app.use(require("cors")());
 
-  // Facts
-  const facts = require("./src/Configs/facts").facts;
-
-  // Constants
-  const targetUserId = process.env.TARGET_USER_ID;
-  const targetChannelId = process.env.TARGET_CHANNEL_ID;
-  const targetChannelId2 = process.env.TARGET_CHANNEL_ID2;
-  if (!targetUserId || !targetChannelId || !targetChannelId2) {
-    console.error("Cannot get env variables!");
-    process.exit(-1);
-  }
-
-  const presenceUpdateMinDuration = 20000; // 20 seconds
-  const catchText = [
-    {
-      texts: ["lmao"],
-      emojis: [
-        "😂",
-        "🇱",
-        "🇲",
-        "🇦",
-        "🇴",
-      ],
-      mustRepeat: false,
-    },
-    {
-      texts: ["lmfao"],
-      emojis: [
-        "🤣",
-        "🇱",
-        "🇲",
-        "🇫",
-        "🇦",
-        "🇴",
-      ],
-      mustRepeat: false,
-    },
-    {
-      texts: ["rofl"],
-      emojis: [
-        "😂",
-        "🇷",
-        "🇴",
-        "🇫",
-        "🇱",
-      ],
-      mustRepeat: false,
-    },
-    {
-      texts: ["lol", "xd"],
-      emojis: [
-        "😂",
-      ],
-      mustRepeat: true,
-    },
-    {
-      texts: ["lawde", "lode", "laude", "lodu", "lavdya"],
-      emojis: [
-        "🥒",
-      ],
-      mustRepeat: true,
-    },
-    {
-      texts: ["tru", "true", "sahi", "correct", "barobar"],
-      emojis: [
-        "🇹",
-        "🇷",
-        "🇺",
-        "👍",
-      ],
-      mustRepeat: true,
-    },
-    {
-      texts: ["bsdk"],
-      emojis: [
-        "🇧",
-        "🇸",
-        "🇩",
-        "🇰",
-      ],
-      mustRepeat: true,
-    },
-    {
-      texts: ["randi"],
-      emojis: [
-        "🇷",
-        "🇦",
-        "🇳",
-        "🇩",
-        "🇮",
-      ],
-      mustRepeat: true,
-    }
-  ];
-
   // Routes
   app.use(require("./src/Routes/home"));
   app.use(require("./src/Routes/post/fact")(async () => {
@@ -123,7 +41,7 @@ require("./src/Scripts/discord.connect")().then(async client => {
   }));
 
   // Listen
-  app.listen(process.env.PORT || 3000, () => console.log(`Express server up! Port=${process.env.PORT || 3000}`));
+  app.listen(PORT, () => console.log(`Express server up! Port=${PORT}`));
 
   // Presence
   // Send alert
