@@ -42,8 +42,12 @@ app.listen(PORT, () => console.log(`Express server up! Port=${PORT}`));
 
 // Connect to discord
 const client = require("./src/Scripts/discord.connect");
+let to = setTimeout(() => exec("kill 1", () => { }), 60000);
 
 client.once('ready', async () => {
+  // Cancel timeout
+  clearTimeout(to);
+
   console.log("Discord login success");
 
   // Set activity
