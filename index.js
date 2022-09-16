@@ -41,7 +41,11 @@ app.use(require("./src/Routes/post/fact")(async () => {
 app.listen(PORT, () => console.log(`Express server up! Port=${PORT}`));
 
 // Connect to discord
-require("./src/Scripts/discord.connect")().then(async client => {
+const client = require("./src/Scripts/discord.connect");
+
+client.once('ready', async () => {
+  console.log("Discord login success");
+
   // Set activity
   client.user.setPresence({ activities: [{ name: 'The Man', type: ActivityType.Listening }], status: PresenceUpdateStatus.DoNotDisturb });
 
@@ -139,7 +143,6 @@ require("./src/Scripts/discord.connect")().then(async client => {
       console.error(e);
     }
   });
-}).catch(err => {
-  console.error(err);
-  process.exit();
 });
+
+client.login(process.env.TOKEN);
