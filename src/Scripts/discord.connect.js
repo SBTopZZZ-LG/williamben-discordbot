@@ -1,20 +1,21 @@
 const { Client, GatewayIntentBits, Partials } = require("discord.js");
-const config = require("../Configs/discord.json");
 
 const client = new Client({
-    intents: [
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMessageReactions
-    ],
-    partials: [
-        Partials.Channel,
-        Partials.GuildMember,
-        Partials.Message,
-    ],
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildPresences,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMessageReactions
+  ],
+  partials: [
+    Partials.Channel,
+    Partials.GuildMember,
+    Partials.Message,
+  ],
 });
 
 module.exports = async () => {
-    await client.login(config.TOKEN);
-    return client;
+  await client.login(process.env.TOKEN);
+  return client;
 };
