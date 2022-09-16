@@ -20,30 +20,30 @@ const catchText = require("./src/Configs/catches.json").catches;
 // Sleep
 const sleep = require("./src/Utils/sleep");
 
+// Start express
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+app.use(require("cors")());
+
+// Routes
+app.use(require("./src/Routes/home"));
+app.use(require("./src/Routes/post/fact")(async () => {
+  try {
+    (await client.channels.fetch(targetChannelId)).send(`<@${targetUserId}>, Here's a fact for you!\n${facts[Math.floor(Math.random() * facts.length)]}`);
+  } catch (e) {
+    console.error(e);
+  }
+}));
+
+// Listen
+app.listen(PORT, () => console.log(`Express server up! Port=${PORT}`));
+
 // Connect to discord
 require("./src/Scripts/discord.connect")().then(async client => {
   // Set activity
   client.user.setPresence({ activities: [{ name: 'The Man', type: ActivityType.Listening }], status: PresenceUpdateStatus.DoNotDisturb });
-
-  // Start express
-  const express = require("express");
-  const app = express();
-
-  app.use(express.json());
-  app.use(require("cors")());
-
-  // Routes
-  app.use(require("./src/Routes/home"));
-  app.use(require("./src/Routes/post/fact")(async () => {
-    try {
-      (await client.channels.fetch(targetChannelId)).send(`<@${targetUserId}>, Here's a fact for you!\n${facts[Math.floor(Math.random() * facts.length)]}`);
-    } catch (e) {
-      console.error(e);
-    }
-  }));
-
-  // Listen
-  app.listen(PORT, () => console.log(`Express server up! Port=${PORT}`));
 
   // Presence
   // Send alert
