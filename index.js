@@ -112,7 +112,9 @@ client.once('ready', async () => {
               return console.error(error ?? stderr);
             }
 
-            mc.reply(stdout);
+            const re = RegExp(/\-+\n[^\-].+\-+\n/img);
+            for (const matched of stdout.matchAll(re))
+              mc.reply(`\`\`\`${matched}\`\`\``);
           });
         }
       } catch (e) {
