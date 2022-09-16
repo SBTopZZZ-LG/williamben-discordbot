@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const { ActivityType, PresenceUpdateStatus } = require("discord.js");
+const { exec } = require("child_process");
 
 // Constants
 const PORT = process.env.PORT || 3000;
@@ -85,7 +86,34 @@ require("./src/Scripts/discord.connect")().then(async client => {
   });
 
   client.on('messageCreate', async (mc) => {
-    if (mc.author.bot || mc.author.id !== targetUserId)
+    if (mc.author.bot)
+      return;
+
+    if (mc.content.trim().startsWith("wbb!")) {
+      try {
+        if (mc.content.trim().substring(4).startsWith("toh")) {
+          // Tower of Hanoi
+          const n = parseInt(mc.content.trim().substring(7));
+          if (n <= 1 || n >= 9)
+            return mc.reply("Size must be at least 2 and at most 9! 😡");
+
+          exec(`./src/Utils/toh.out ${n}`, (error, stdout, stderr) => {
+            if (error || stderr) {
+              mc.reply("Failed to perform Tower of Hanoi computation! ☹️");
+              return console.error(error ?? stderr);
+            }
+
+            mc.reply(stdout);
+          });
+        }
+      } catch (e) {
+        console.error(e);
+      }
+
+      return;
+    }
+
+    if (mc.author.id !== targetUserId)
       return;
 
     try {
