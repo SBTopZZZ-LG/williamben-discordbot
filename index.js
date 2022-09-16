@@ -1,8 +1,6 @@
 require("dotenv").config();
 
 const { ActivityType, PresenceUpdateStatus } = require("discord.js");
-const { exec } = require("child_process");
-exec("chmod +rwx ./src/Utils/toh.out", () => { });
 
 // Constants
 const PORT = process.env.PORT || 3000;
@@ -106,15 +104,12 @@ client.once('ready', async () => {
           if (n <= 1 || n >= 9)
             return mc.reply("Size must be at least 2 and at most 9! 😡");
 
-          exec(`./src/Utils/toh.out ${n}`, (error, stdout, stderr) => {
-            if (error || stderr) {
-              mc.reply("Failed to perform Tower of Hanoi computation! ☹️");
-              return console.error(error ?? stderr);
-            }
-
-            const re = RegExp(/\-+\n[^\-].+\-+\n/img);
-            for (const matched of stdout.matchAll(re))
-              mc.reply(`\`\`\`${matched}\`\`\``);
+          const resultPath = await require("./src/Utils/toh")(n);
+          await mc.channel.send({
+            files: [{
+              attachment: resultPath,
+              name: 'toh.txt',
+            }],
           });
         }
       } catch (e) {
