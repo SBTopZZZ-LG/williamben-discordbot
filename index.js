@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const { exec } = require("child_process");
+const toh = require("./src/Utils/toh");
 
 const { ActivityType, PresenceUpdateStatus } = require("discord.js");
 
@@ -106,7 +107,7 @@ client.once('ready', async () => {
           if (n <= 1 || n >= 9)
             return mc.reply("Size must be at least 2 and at most 9! 😡");
 
-          const resultPath = await require("./src/Utils/toh")(n);
+          const resultPath = await toh(n);
           await mc.channel.send({
             files: [{
               attachment: resultPath,
