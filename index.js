@@ -1,7 +1,10 @@
 require("dotenv").config();
 
 const { exec } = require("child_process");
+
+// Executable scripts
 const toh = require("./src/Utils/toh");
+const nq = require("./src/Utils/nq");
 
 const { ActivityType, PresenceUpdateStatus } = require("discord.js");
 
@@ -39,6 +42,7 @@ let to = setTimeout(() => exec("kill 1", () => { }), discordLoginTimeout);
 
 // Bot Commands
 const wbb_toh = /^wbb! *toh *(?<size>\d{1,2})$/;
+const wbb_nq = /^wbb! *nq *(?<size>\d{1,2})$/;
 
 // Command evaluate
 const { evalRegex } = require("./src/Utils/cmd");
@@ -109,6 +113,25 @@ client.once('ready', async () => {
           files: [{
             attachment: resultPath,
             name: 'toh.txt',
+          }],
+        });
+      } catch (e) {
+        console.error(e);
+      }
+
+      return;
+    } else if (wbb_nq.test(mc.content)) {
+      // N Queens
+      try {
+        const { size } = evalRegex(wbb_nq, mc.content);
+        if (size < 1 || size > 9)
+          return mc.reply("Size must be at least 1 and at most 9! 😡");
+
+        const resultPath = await nq(size);
+        await mc.channel.send({
+          files: [{
+            attachment: resultPath,
+            name: 'nq.txt',
           }],
         });
       } catch (e) {
