@@ -37,6 +37,12 @@ app.use(require("./src/Routes/post/fact")(async () => {
 const client = require("./src/Scripts/discord.connect");
 let to = setTimeout(() => exec("kill 1", () => { }), discordLoginTimeout);
 
+// Bot Commands
+const wbb_toh = /^wbb! *toh *(?<size>\d{1, 2})$/;
+
+// Command evaluate
+const { evalRegex } = require("./src/Utils/cmd");
+
 client.once('ready', async () => {
   // Cancel timeout
   clearTimeout(to);
@@ -91,22 +97,20 @@ client.once('ready', async () => {
     if (mc.author.bot)
       return;
 
-    if (mc.content.trim().startsWith("wbb!")) {
+    if (wbb_toh.test(mc.content)) {
+      // Tower of Hanoi
       try {
-        if (mc.content.trim().substring(4).startsWith("toh")) {
-          // Tower of Hanoi
-          const n = parseInt(mc.content.trim().substring(7));
-          if (n <= 1 || n >= 9)
-            return mc.reply("Size must be at least 2 and at most 9! 😡");
+        const { size } = evalRegex(wbb_toh, mc.content);
+        if (size <= 1 || size > 9)
+          return mc.reply("Size must be at least 2 and at most 9! 😡");
 
-          const resultPath = await toh(n);
-          await mc.channel.send({
-            files: [{
-              attachment: resultPath,
-              name: 'toh.txt',
-            }],
-          });
-        }
+        const resultPath = await toh(size);
+        await mc.channel.send({
+          files: [{
+            attachment: resultPath,
+            name: 'toh.txt',
+          }],
+        });
       } catch (e) {
         console.error(e);
       }
