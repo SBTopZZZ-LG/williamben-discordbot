@@ -1,6 +1,12 @@
 const { exec } = require("child_process");
+
+// Constants
+const outputTimeout = 20000; // 20 seconds
+
+// Enable permissions to executable to avoid runtime errors
 exec("chmod +rwx ./src/Utils/toh.out", () => { });
 
+// Timeout variable
 let deletionMgr = null;
 
 module.exports = async (n) => new Promise((resolve, reject) => {
@@ -17,7 +23,7 @@ module.exports = async (n) => new Promise((resolve, reject) => {
 
             // Set deletionMgr to null
             deletionMgr = null;
-        }, 20000);
+        }, outputTimeout);
 
         return resolve("./src/Utils/toh.txt");
     });

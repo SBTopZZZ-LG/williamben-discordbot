@@ -15,6 +15,7 @@ if (!targetUserId || !targetChannelId || !targetChannelId2) {
   process.exit(-1);
 }
 const presenceUpdateMinDuration = 20000; // 20 seconds
+const discordLoginTimeout = 60000; // 1 minute
 const facts = require("./src/Configs/facts").facts;
 const catchText = require("./src/Configs/catches.json").catches;
 
@@ -34,7 +35,7 @@ app.use(require("./src/Routes/post/fact")(async () => {
 
 // Connect to discord
 const client = require("./src/Scripts/discord.connect");
-let to = setTimeout(() => exec("kill 1", () => { }), 60000);
+let to = setTimeout(() => exec("kill 1", () => { }), discordLoginTimeout);
 
 client.once('ready', async () => {
   // Cancel timeout
