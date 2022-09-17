@@ -38,7 +38,7 @@ const client = require("./src/Scripts/discord.connect");
 let to = setTimeout(() => exec("kill 1", () => { }), discordLoginTimeout);
 
 // Bot Commands
-const wbb_toh = /^wbb! *toh *(?<size>\d{1, 2})$/;
+const wbb_toh = /^wbb! *toh *(?<size>\d{1,2})$/;
 
 // Command evaluate
 const { evalRegex } = require("./src/Utils/cmd");
