@@ -21,14 +21,8 @@ const catchText = require("./src/Configs/catches.json").catches;
 // Sleep
 const sleep = require("./src/Utils/sleep");
 
-// Start express
-const express = require("express");
-const app = express();
-
-app.use(express.json());
-app.use(require("cors")());
-
-// Routes
+// Setup Express Routes
+const app = require("./src/Scripts/express")(PORT);
 app.use(require("./src/Routes/home"));
 app.use(require("./src/Routes/post/fact")(async () => {
   try {
@@ -37,9 +31,6 @@ app.use(require("./src/Routes/post/fact")(async () => {
     console.error(e);
   }
 }));
-
-// Listen
-app.listen(PORT, () => console.log(`Express server up! Port=${PORT}`));
 
 // Connect to discord
 const client = require("./src/Scripts/discord.connect");
