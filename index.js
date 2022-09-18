@@ -278,9 +278,9 @@ client.once('ready', async () => {
 				else if (_wbb_poll_timeoutMode_t.test(timeoutMode)) {
 					const { value, mode } = evalRegex(_wbb_poll_timeoutMode_t, timeoutMode);
 					const numValue = { h: parseInt(value, 10) * 3600, m: parseInt(value, 10) * 60, s: parseInt(value, 10) }[mode];
-					if (numValue < 15000) // 15 seconds min.
+					if (numValue < 15) // 15 seconds min.
 						return mc.reply("Time duration cannot be any lesser than 15 seconds! 😡");
-					else if (numValue > 1800000) // 30 mins max.
+					else if (numValue > 1800) // 30 mins max.
 						return mc.reply("Time duration cannot be any greater than 30 minutes! 😡");
 
 					timeoutMode2 = {
