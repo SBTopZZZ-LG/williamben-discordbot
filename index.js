@@ -194,6 +194,9 @@ client.once('ready', async () => {
 		if (mc.author.bot)
 			return;
 
+		if (mc.channel.type === 'dm')
+			return;
+
 		if (wbb_help.test(mc.content)) {
 			try {
 				mc.channel.send({
