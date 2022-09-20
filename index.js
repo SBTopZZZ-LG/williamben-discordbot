@@ -212,7 +212,7 @@ client.once('ready', async () => {
 								{
 									name: "poll <timeoutMode> \"<title>\" (<options>)", value: "```Initiate a Poll of given topic <title>, and present given choices <options> to all users.\n\n" +
 										"<timeoutMode> ▶️ The mode selected that remarks the end of the poll lifecycle.\nPossible timeout modes are as listed:\n\t1. e ▶️ Specifies that the poll ends when every user in the guild has casted a vote\n\t2. t=<duration> ▶️ Specifies that the poll ends after specified amount of time <duration> (ex: t=10m)\nLimitations: 15s <= duration <= 30m\n\t3. c=<count> ▶️ Specifies that the poll ends when the specified <count> number of votes has been reached (ex: c=5)\nLimitations: 1 < count\n\n" +
-										"<options> ▶️ Array of choices seperated by some whitespace and enclosed in double quotes\nLimitations: 0 < len(options) < 15\n\nExample: wbb!poll c=10 \"Are you WilliamBen?\" (\"Yes\" \"Nah\" \"I might be\")```",
+										"<options> ▶️ Array of choices seperated by some whitespace and enclosed in double quotes\nLimitations: 0 < len(options) < 15, time duration for non-timed polls is 10 minutes\n\nExample: wbb!poll c=10 \"Are you WilliamBen?\" (\"Yes\" \"Nah\" \"I might be\")```",
 								},
 								{
 									name: "delete", value: "```Proceeds to delete the referenced message that:\n1. Was authored by WilliamBenBot, and\n2. Message is deletable```"
