@@ -5,6 +5,7 @@ const { exec } = require("child_process");
 // Executable scripts
 const toh = require("./src/Utils/toh");
 const nq = require("./src/Utils/nq");
+const quicksort = require("./src/Utils/quicksort");
 const poll = require("./src/Utils/poll");
 
 const { ActivityType, PresenceUpdateStatus, EmbedBuilder, ActionRowBuilder, SelectMenuBuilder, SelectMenuOptionBuilder } = require("discord.js");
@@ -45,6 +46,7 @@ let to = setTimeout(() => exec("kill 1", () => { }), discordLoginTimeout);
 const wbb_help = /^wbb! *help *$/;
 const wbb_toh = /^wbb! *toh *(?<size>\d{1,2}) *$/;
 const wbb_nq = /^wbb! *nq *(?<size>\d{1,2}) *$/;
+const wbb_qs = /^wbb! *qs *(?<payload>(?:[\d ]+|\w+)) *$/;
 const wbb_poll = /^wbb!poll *(?<timeoutMode>e|t=\d+[hms]|c=\d+) +"(?<title>.+[^\\])" *\((?<options>.+)\) *$/;
 const _wbb_poll_timeoutMode_e = /e/;
 const _wbb_poll_timeoutMode_t = /t=(?<value>\d+)(?<mode>[hms])/;
@@ -257,6 +259,29 @@ client.once('ready', async () => {
 					files: [{
 						attachment: resultPath,
 						name: 'nq.txt',
+					}],
+				});
+			} catch (e) {
+				mc.reply("Sorry, your request could not be processed due to an internal error! 🙁");
+				console.error(e);
+			}
+
+			return;
+		} else if (wbb_qs.test(mc.content)) {
+			// Quicksort
+			try {
+				const { payload } = evalRegex(wbb_qs, mc.content);
+
+				const resultPath = quicksort(payload);
+				if (!resultPath) {
+					mc.reply("Sorry, your request could not be processed due to an internal error! 🙁");
+					return;
+				}
+
+				await mc.channel.send({
+					files: [{
+						attachment: resultPath,
+						name: 'qs.txt',
 					}],
 				});
 			} catch (e) {
