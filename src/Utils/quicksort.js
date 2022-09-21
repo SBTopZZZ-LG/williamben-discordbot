@@ -17,7 +17,7 @@ module.exports = async (payload) => new Promise((resolve, reject) => {
     } else if (/[^\d ]+/.test(payload)) {
         // Text as input
         args = `2 ${payload}`;
-    } else return null;
+    } else return reject("Error: Unknown input format!");
 
     exec(`./src/Utils/quicksort.out ${args}`, (error, stdout, stderr) => {
         if (error || stderr) {

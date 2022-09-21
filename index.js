@@ -272,12 +272,7 @@ client.once('ready', async () => {
 			try {
 				const { payload } = evalRegex(wbb_qs, mc.content);
 
-				const resultPath = quicksort(payload);
-				if (!resultPath) {
-					mc.reply("Sorry, your request could not be processed due to an internal error! 🙁");
-					return;
-				}
-
+				const resultPath = await quicksort(payload);
 				await mc.channel.send({
 					files: [{
 						attachment: resultPath,
