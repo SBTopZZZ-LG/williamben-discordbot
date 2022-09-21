@@ -8,5 +8,5 @@ node_modules
 .env
 *.env
 
-# toh generated files
-src/Utils/toh.txt
+# generated text files
+*.txt
