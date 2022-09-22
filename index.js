@@ -403,7 +403,7 @@ client.once("ready", async () => {
 
                 const link =
                     "https://williamben-discordbot.sbtopzzzlg.repl.co/util/qs?payload=" +
-                    payload;
+                    encodeURIComponent(payload);
 
                 turl.shorten(link)
                     .then((newLink) => mc.reply(newLink))
