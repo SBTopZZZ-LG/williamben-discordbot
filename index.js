@@ -9,7 +9,7 @@ const quicksort = require("./src/Utils/quicksort");
 const poll = require("./src/Utils/poll");
 
 // Link shortener
-const shortUrl = require("node-url-shortener");
+const turl = require("turl");
 
 const {
     ActivityType,
@@ -339,9 +339,9 @@ client.once("ready", async () => {
                     "https://williamben-discordbot.sbtopzzzlg.repl.co/util/toh?payload=" +
                     size;
 
-                shortUrl.short(link, async (err, newLink) => {
-                    mc.reply(err ? link : newLink);
-                });
+                turl.shorten(link)
+                    .then((newLink) => mc.reply(newLink))
+                    .catch(() => mc.reply(link));
             } catch (e) {
                 console.error(e);
                 mc.reply(
@@ -374,9 +374,9 @@ client.once("ready", async () => {
                     "https://williamben-discordbot.sbtopzzzlg.repl.co/util/nq?payload=" +
                     size;
 
-                shortUrl.short(link, async (err, newLink) => {
-                    mc.reply(err ? link : newLink);
-                });
+                turl.shorten(link)
+                    .then((newLink) => mc.reply(newLink))
+                    .catch(() => mc.reply(link));
             } catch (e) {
                 mc.reply(
                     "Sorry, your request could not be processed due to an internal error! 🙁"
@@ -405,9 +405,9 @@ client.once("ready", async () => {
                     "https://williamben-discordbot.sbtopzzzlg.repl.co/util/qs?payload=" +
                     payload;
 
-                shortUrl.short(link, async (err, newLink) => {
-                    mc.reply(err ? link : newLink);
-                });
+                turl.shorten(link)
+                    .then((newLink) => mc.reply(newLink))
+                    .catch(() => mc.reply(link));
             } catch (e) {
                 mc.reply(
                     "Sorry, your request could not be processed due to an internal error! 🙁"
