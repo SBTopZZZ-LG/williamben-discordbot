@@ -62,7 +62,7 @@ let to = setTimeout(() => exec("kill 1", () => {}), discordLoginTimeout);
 const wbb_help = /^wbb! *help *$/;
 const wbb_toh = /^wbb! *toh *(?<size>\d{1,2}) *$/;
 const wbb_nq = /^wbb! *nq *(?<size>\d{1,2}) *$/;
-const wbb_qs = /^wbb! *qs *(?<payload>(?:[\d ]+|\w+)) *$/;
+const wbb_qs = /^wbb! *qs *(?<payload>(?:(?:-?\d| )+|\w+)) *$/;
 const wbb_poll =
     /^wbb!poll *(?<timeoutMode>e|t=\d+[hms]|c=\d+) +"(?<title>.+[^\\])" *\((?<options>.+)\) *$/;
 const _wbb_poll_timeoutMode_e = /e/;
