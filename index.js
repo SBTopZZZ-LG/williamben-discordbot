@@ -8,6 +8,9 @@ const nq = require("./src/Utils/nq");
 const quicksort = require("./src/Utils/quicksort");
 const poll = require("./src/Utils/poll");
 
+// Link shortener
+const shortUrl = require("node-url-shortener");
+
 const {
     ActivityType,
     PresenceUpdateStatus,
@@ -332,10 +335,13 @@ client.once("ready", async () => {
                     ],
                 }); */
 
-                mc.reply(
+                const link =
                     "https://williamben-discordbot.sbtopzzzlg.repl.co/util/toh?payload=" +
-                        size
-                );
+                    size;
+
+                shortUrl.short(link, async (err, newLink) => {
+                    mc.reply(err ? link : newLink);
+                });
             } catch (e) {
                 console.error(e);
                 mc.reply(
@@ -364,10 +370,13 @@ client.once("ready", async () => {
                     ],
                 }); */
 
-                mc.reply(
+                const link =
                     "https://williamben-discordbot.sbtopzzzlg.repl.co/util/nq?payload=" +
-                        size
-                );
+                    size;
+
+                shortUrl.short(link, async (err, newLink) => {
+                    mc.reply(err ? link : newLink);
+                });
             } catch (e) {
                 mc.reply(
                     "Sorry, your request could not be processed due to an internal error! 🙁"
@@ -392,10 +401,13 @@ client.once("ready", async () => {
                     ],
                 }); */
 
-                mc.reply(
+                const link =
                     "https://williamben-discordbot.sbtopzzzlg.repl.co/util/qs?payload=" +
-                        payload
-                );
+                    payload;
+
+                shortUrl.short(link, async (err, newLink) => {
+                    mc.reply(err ? link : newLink);
+                });
             } catch (e) {
                 mc.reply(
                     "Sorry, your request could not be processed due to an internal error! 🙁"
