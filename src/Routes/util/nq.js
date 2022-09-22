@@ -23,9 +23,12 @@ Router.get("/util/nq", async (req, res) => {
         let htmltext = require("fs")
             .readFileSync(path.join(__dirname, "../../Models/html.output.html"))
             .toString();
-        const resultText = require("fs")
+        let resultText = require("fs")
             .readFileSync(await nq(payload))
             .toString();
+
+        // Replace '♛' with 'Q' to avoid html monospacing errors
+        resultText = resultText.split("♛").join("Q");
 
         htmltext = htmltext
             .split("{{{title}}}")
