@@ -321,7 +321,8 @@ client.once("ready", async () => {
                         "Size must be at least 2 and at most 9! 😡"
                     );
 
-                const resultPath = await toh(size);
+                /* Deprecated
+				const resultPath = await toh(size);
                 await mc.channel.send({
                     files: [
                         {
@@ -329,7 +330,12 @@ client.once("ready", async () => {
                             name: "toh.txt",
                         },
                     ],
-                });
+                }); */
+
+                mc.reply(
+                    "https://williamben-discordbot.sbtopzzzlg.repl.co/util/toh?payload=" +
+                        size
+                );
             } catch (e) {
                 console.error(e);
                 mc.reply(
@@ -347,7 +353,8 @@ client.once("ready", async () => {
                         "Size must be at least 1 and at most 9! 😡"
                     );
 
-                const resultPath = await nq(size);
+                /* Deprecated
+				const resultPath = await nq(size);
                 await mc.channel.send({
                     files: [
                         {
@@ -355,7 +362,12 @@ client.once("ready", async () => {
                             name: "nq.txt",
                         },
                     ],
-                });
+                }); */
+
+                mc.reply(
+                    "https://williamben-discordbot.sbtopzzzlg.repl.co/util/nq?payload=" +
+                        size
+                );
             } catch (e) {
                 mc.reply(
                     "Sorry, your request could not be processed due to an internal error! 🙁"
@@ -369,7 +381,8 @@ client.once("ready", async () => {
             try {
                 const { payload } = evalRegex(wbb_qs, mc.content);
 
-                const resultPath = await quicksort(payload);
+                /* Deprecated
+				const resultPath = await quicksort(payload);
                 await mc.channel.send({
                     files: [
                         {
@@ -377,7 +390,12 @@ client.once("ready", async () => {
                             name: "qs.txt",
                         },
                     ],
-                });
+                }); */
+
+                mc.reply(
+                    "https://williamben-discordbot.sbtopzzzlg.repl.co/util/qs?payload=" +
+                        payload
+                );
             } catch (e) {
                 mc.reply(
                     "Sorry, your request could not be processed due to an internal error! 🙁"
