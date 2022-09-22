@@ -31,7 +31,7 @@ Router.get("/util/toh", async (req, res) => {
             .split("{{{title}}}")
             .join("Tower of Hanoi")
             .split("{{{input}}}")
-            .join(payload.trim())
+            .join(payload)
             .split("{{{output}}}")
             .join(resultText);
 

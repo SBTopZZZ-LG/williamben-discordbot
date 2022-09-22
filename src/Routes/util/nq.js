@@ -31,7 +31,7 @@ Router.get("/util/nq", async (req, res) => {
             .split("{{{title}}}")
             .join("N-Queens")
             .split("{{{input}}}")
-            .join(payload.trim())
+            .join(payload)
             .split("{{{output}}}")
             .join(resultText);
 
