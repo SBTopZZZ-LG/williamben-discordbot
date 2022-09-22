@@ -7,9 +7,12 @@ Router.get("/util/qs", async (req, res) => {
     try {
         const queries = req.query;
 
-        const payload = queries.payload;
+        let payload = queries.payload;
         if (!payload || payload.trim() === "")
             return res.status(400).send("<h2>Payload required</h2>");
+
+        // Replace multiple spaces with single space to avoid errors
+        payload = payload.replace(/ +/g, " ");
 
         let htmltext = require("fs")
             .readFileSync(path.join(__dirname, "../../Models/html.output.html"))
