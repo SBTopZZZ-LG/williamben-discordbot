@@ -325,17 +325,6 @@ client.once("ready", async () => {
 						"Size must be at least 2 and at most 9! 😡"
 					);
 
-				/* Deprecated
-				const resultPath = await toh(size);
-				await mc.channel.send({
-					files: [
-						{
-							attachment: resultPath,
-							name: "toh.txt",
-						},
-					],
-				}); */
-
 				const link =
 					"https://williamben-discordbot.sbtopzzzlg.repl.co/util/toh?payload=" +
 					size;
@@ -360,17 +349,6 @@ client.once("ready", async () => {
 						"Size must be at least 1 and at most 9! 😡"
 					);
 
-				/* Deprecated
-				const resultPath = await nq(size);
-				await mc.channel.send({
-					files: [
-						{
-							attachment: resultPath,
-							name: "nq.txt",
-						},
-					],
-				}); */
-
 				const link =
 					"https://williamben-discordbot.sbtopzzzlg.repl.co/util/nq?payload=" +
 					size;
@@ -390,17 +368,6 @@ client.once("ready", async () => {
 			// Quicksort
 			try {
 				const { payload } = evalRegex(wbb_qs, mc.content);
-
-				/* Deprecated
-				const resultPath = await quicksort(payload);
-				await mc.channel.send({
-					files: [
-						{
-							attachment: resultPath,
-							name: "qs.txt",
-						},
-					],
-				}); */
 
 				const link =
 					"https://williamben-discordbot.sbtopzzzlg.repl.co/util/qs?payload=" +

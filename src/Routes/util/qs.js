@@ -17,9 +17,7 @@ Router.get("/util/qs", async (req, res) => {
         let htmltext = require("fs")
             .readFileSync(path.join(__dirname, "../../Models/html.output.html"))
             .toString();
-        const resultText = require("fs")
-            .readFileSync(await quicksort(payload))
-            .toString();
+        const resultText = await quicksort(payload);
 
         htmltext = htmltext
             .split("{{{title}}}")

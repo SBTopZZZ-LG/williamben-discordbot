@@ -23,9 +23,7 @@ Router.get("/util/toh", async (req, res) => {
         let htmltext = require("fs")
             .readFileSync(path.join(__dirname, "../../Models/html.output.html"))
             .toString();
-        const resultText = require("fs")
-            .readFileSync(await toh(payload))
-            .toString();
+        const resultText = await toh(payload);
 
         htmltext = htmltext
             .split("{{{title}}}")
