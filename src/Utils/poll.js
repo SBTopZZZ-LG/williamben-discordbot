@@ -2,42 +2,63 @@
 const sessionTimeout = 600000; // 10 minutes
 const sessions = {
     "<pollid>": {
-        "createdTimestamp": "<timestamp>",
-        "title": "<title>",
-        "options": {
+        createdTimestamp: "<timestamp>",
+        title: "<title>",
+        options: {
             "<emoji>": {
-                "option": "<option>",
-                "votesCasted": [
-                    "<userid>",
-                ],
+                option: "<option>",
+                votesCasted: ["<userid>"],
             },
         },
-        "timeoutMode": {
-            "mode": "<modeid>",
+        timeoutMode: {
+            mode: "<modeid>",
         },
-        "timeoutTimeoutDuration": "<duration>",
-        "timeoutVar": "<timeoutVariable>",
-        "timeoutCallback": "<callback>",
-        "globalVoters": {
+        timeoutTimeoutDuration: "<duration>",
+        timeoutVar: "<timeoutVariable>",
+        timeoutCallback: "<callback>",
+        globalVoters: {
             "<userid>": {
-                "name": "<username>",
+                name: "<username>",
             },
         },
-        "globalVotersCount": "<globalVotersCount>",
+        globalVotersCount: "<globalVotersCount>",
     },
 };
-const emojis = ['🍏', '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🫐', '🍈', '🍒', '🍑', '🥭'];
+const emojis = [
+    "🍏",
+    "🍎",
+    "🍐",
+    "🍊",
+    "🍋",
+    "🍌",
+    "🍉",
+    "🍇",
+    "🍓",
+    "🫐",
+    "🍈",
+    "🍒",
+    "🍑",
+    "🥭",
+];
 
 module.exports = {
     sessionTimeout,
     saveSession: (msgid, session) => {
-        if ("createdTimestamp" in session && "title" in session && "options" in session && "timeoutMode" in session && "timeoutVar" in session && session.timeoutVar === 1) {
+        if (
+            "createdTimestamp" in session &&
+            "title" in session &&
+            "options" in session &&
+            "timeoutMode" in session &&
+            "timeoutVar" in session &&
+            session.timeoutVar === 1
+        ) {
             // Compute timeoutTimeoutDuration
-            if (session.timeoutMode.mode === 'e')
+            if (session.timeoutMode.mode === "e")
                 session.timeoutTimeoutDuration = sessionTimeout;
-            else if (session.timeoutMode.mode === 't')
-                session.timeoutTimeoutDuration = session.timeoutMode.durationInSeconds * 1000;
-            else if (session.timeoutMode.mode === 'c')
+            else if (session.timeoutMode.mode === "t")
+                session.timeoutTimeoutDuration =
+                    session.timeoutMode.durationInSeconds * 1000;
+            else if (session.timeoutMode.mode === "c")
                 session.timeoutTimeoutDuration = sessionTimeout;
 
             session.timeoutVar = setTimeout(() => {
@@ -57,14 +78,16 @@ module.exports = {
         return false;
     },
     createSession: (title, options, timeoutMode, timeoutCallback) => {
-        if (options.length > emojis.length || options.length === 0)
-            return null;
+        if (options.length > emojis.length || options.length === 0) return null;
 
         const sessionOptions = {};
-        options.forEach((option, index) => sessionOptions[emojis[index]] = {
-            option,
-            votesCasted: [],
-        });
+        options.forEach(
+            (option, index) =>
+                (sessionOptions[emojis[index]] = {
+                    option,
+                    votesCasted: [],
+                })
+        );
 
         const session = {
             createdTimestamp: 0,
@@ -80,8 +103,7 @@ module.exports = {
         return session;
     },
     deleteSession: (msgid) => {
-        if (!(msgid in sessions))
-            return;
+        if (!(msgid in sessions)) return;
 
         clearTimeout(sessions[msgid].timeoutVar);
 
