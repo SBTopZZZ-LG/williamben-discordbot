@@ -23,6 +23,7 @@ const {
 // Constants
 const PORT = process.env.PORT || 3000;
 const targetUserId = process.env.TARGET_USER_ID;
+const developerId = process.env.DEVELOPER;
 const targetChannelId = process.env.TARGET_CHANNEL_ID;
 const targetChannelId2 = process.env.TARGET_CHANNEL_ID2;
 if (!targetUserId || !targetChannelId || !targetChannelId2) {
@@ -60,6 +61,11 @@ app.use(require("./src/Routes/util/toh"));
 // Connect to discord
 const client = require("./src/Scripts/discord.connect");
 let to = setTimeout(() => exec("kill 1", () => {}), discordLoginTimeout);
+
+// Dev Commands
+const wbb_send = /^send *(?<channelId>\d+) *"(?<message>.+)" *$/;
+const wbb_sendreply =
+    /^sendreply *(?<channelId>\d+) *(?<replyTo>\d+) *"(?<message>.+)" *$/;
 
 // Bot Commands
 const wbb_help = /^wbb! *help *$/;
@@ -591,7 +597,42 @@ client.once("ready", async () => {
             }
         }
 
-        if (mc.author.id !== targetUserId) return;
+        if (mc.author.id !== targetUserId) {
+            if (mc.author.id === developerId) {
+                if (wbb_send.test(mc.content)) {
+                    try {
+                        const { channelId, message } = evalRegex(
+                            wbb_send,
+                            mc.content
+                        );
+
+                        client.channels
+                            .fetch(channelId)
+                            .then((chnl) => chnl.send(message));
+                    } catch (e) {
+                        console.error("Dev error", e);
+                    }
+                } else if (wbb_sendreply.test(mc.content)) {
+                    try {
+                        const { channelId, replyTo, message } = evalRegex(
+                            wbb_sendreply,
+                            mc.content
+                        );
+
+                        client.channels
+                            .fetch(channelId)
+                            .then(async (chnl) =>
+                                (await chnl.messages.fetch(replyTo)).reply(
+                                    message
+                                )
+                            );
+                    } catch (e) {
+                        console.error("Dev error", e);
+                    }
+                }
+            }
+            return;
+        }
 
         try {
             const msg = mc.content
