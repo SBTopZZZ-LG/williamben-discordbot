@@ -10,3 +10,4 @@ node_modules
 
 # generated text files
 *.txt
+_generated

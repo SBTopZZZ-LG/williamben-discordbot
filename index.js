@@ -1,9 +1,11 @@
 require("dotenv").config();
 
 const { exec } = require("child_process");
+const axios = require("axios").default;
 
 // Executable scripts
 const poll = require("./src/Utils/poll");
+const manzae = require("./src/Utils/manzae/manzae");
 
 // Link shortener
 const turl = require("turl");
@@ -18,6 +20,7 @@ const {
 } = require("discord.js");
 
 // Constants
+const TEMP_DIR = "./_generated";
 const PORT = process.env.PORT || 3000;
 const targetUserId = process.env.TARGET_USER_ID;
 const developerId = process.env.DEVELOPER;
@@ -32,6 +35,10 @@ const discordLoginTimeout = 60000; // 1 minute
 const facts = require("./src/Configs/facts").facts;
 const catchText = require("./src/Configs/catches.json").catches;
 
+// Create TEMP_DIR if it does not exist
+if (!require("fs").existsSync(TEMP_DIR)) {
+    require("fs").mkdirSync(TEMP_DIR);
+}
 // Sleep
 const sleep = require("./src/Utils/sleep");
 
@@ -278,6 +285,34 @@ client.once("ready", async () => {
         if (mc.author.bot) return;
 
         if (mc.channel.type === "dm") return;
+
+        if (mc.attachments.size > 0) {
+            try {
+                const attachment = mc.attachments.at(0);
+                const response = await axios.get(attachment.url, {
+                    responseType: "blob",
+                });
+
+                let extension;
+                {
+                    const split = attachment.name.split(".");
+                    extension = split[split.length - 1];
+                }
+                const filename = `${TEMP_DIR}/img.${Date.now()}.${extension}`;
+                require("fs").writeFileSync(filename, response.data);
+
+                // Manzae?
+                const isManzae = await manzae(filename);
+                if (isManzae) {
+                    mc.reply(`<@${targetUserId}> Manzae`);
+                }
+
+                // Delete file
+                require("fs").unlinkSync(filename);
+            } catch (e) {
+                console.error(e);
+            }
+        }
 
         if (wbb_help.test(mc.content)) {
             try {
