@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const Router = express.Router();
-const quicksort = require("../../Utils/quicksort");
+const quicksort = require("../../Utils/quicksort/quicksort");
 
 Router.get("/util/qs", async (req, res) => {
     try {

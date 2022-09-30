@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const Router = express.Router();
-const nq = require("../../Utils/nq");
+const nq = require("../../Utils/nq/nq");
 
 Router.get("/util/nq", async (req, res) => {
     try {

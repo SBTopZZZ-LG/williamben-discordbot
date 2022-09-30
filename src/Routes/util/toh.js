@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const Router = express.Router();
-const toh = require("../../Utils/toh");
+const toh = require("../../Utils/toh/toh");
 
 Router.get("/util/toh", async (req, res) => {
     try {

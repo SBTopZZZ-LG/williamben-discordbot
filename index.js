@@ -3,9 +3,6 @@ require("dotenv").config();
 const { exec } = require("child_process");
 
 // Executable scripts
-const toh = require("./src/Utils/toh");
-const nq = require("./src/Utils/nq");
-const quicksort = require("./src/Utils/quicksort");
 const poll = require("./src/Utils/poll");
 
 // Link shortener
