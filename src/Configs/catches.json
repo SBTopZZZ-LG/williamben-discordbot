@@ -103,6 +103,19 @@
                 "🇮"
             ],
             "mustRepeat": true
+        },
+        {
+            "texts": [
+                "m8",
+                "mate"
+            ],
+            "emojis": [
+                "🇲",
+                "🇦",
+                "🇹",
+                "🇪"
+            ],
+            "mustRepeat": true
         }
     ]
 }
