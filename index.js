@@ -134,7 +134,7 @@ client.once("ready", async () => {
 					});
 			else
 				(await client.channels.fetch(targetChannelId2))
-					.send("🚨 The Man has... vanished? 🗿⁉️")
+					.send("🚨 The Man has... vanished?! 🗿⁉️")
 					.then(async (msg) => {
 						await msg.react("🚨");
 						await msg.react("⁉️");
