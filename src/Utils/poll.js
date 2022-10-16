@@ -83,10 +83,10 @@ module.exports = {
         const sessionOptions = {};
         options.forEach(
             (option, index) =>
-                (sessionOptions[emojis[index]] = {
-                    option,
-                    votesCasted: [],
-                })
+            (sessionOptions[emojis[index]] = {
+                option,
+                votesCasted: [],
+            })
         );
 
         const session = {

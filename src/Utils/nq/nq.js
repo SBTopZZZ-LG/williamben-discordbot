@@ -1,7 +1,7 @@
 const { exec } = require("child_process");
 
 // Enable permissions to executable to avoid runtime errors
-exec("chmod +rwx ./src/Utils/nq/nq.out", () => {});
+exec("chmod +rwx ./src/Utils/nq/nq.out", () => { });
 
 module.exports = async (n) =>
     new Promise((resolve, reject) => {

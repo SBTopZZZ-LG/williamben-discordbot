@@ -1,7 +1,7 @@
 const { exec } = require("child_process");
 
 // Enable permissions to executable to avoid runtime errors
-exec("chmod +rwx ./src/Utils/quicksort/quicksort.out", () => {});
+exec("chmod +rwx ./src/Utils/quicksort/quicksort.out", () => { });
 
 module.exports = async (payload) =>
     new Promise((resolve, reject) => {
