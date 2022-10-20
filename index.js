@@ -112,33 +112,41 @@ client.once("ready", async () => {
 			if (Date.now() - lastPresenceUpdated < presenceUpdateMinDuration)
 				return;
 
-			if (newPresence.status === "online")
+			if (newPresence.status === "online" || newPresence.status === "dnd" || newPresence.status === "idle" || newPresence.status === "invisible")
 				(await client.channels.fetch(targetChannelId2))
 					.send("🚨 The Man is online. 🗿")
 					.then(async (msg) => {
 						await msg.react("🚨");
 					});
-			else if (newPresence.status === "dnd")
-				(await client.channels.fetch(targetChannelId2))
-					.send("🚨 The Man is online but DnD... 🗿👍")
-					.then(async (msg) => {
-						await msg.react("🚨");
-						await msg.react("👍");
-					});
-			else if (newPresence.status === "offline")
+			// else if (newPresence.status === "dnd")
+			// 	(await client.channels.fetch(targetChannelId2))
+			// 		.send("🚨 The Man is online but DnD... 🗿👍")
+			// 		.then(async (msg) => {
+			// 			await msg.react("🚨");
+			// 			await msg.react("👍");
+			// 		});
+			// else if (newPresence.status === "offline")
+			// 	(await client.channels.fetch(targetChannelId2))
+			// 		.send("🚨 The Man is offline. 🗿💤")
+			// 		.then(async (msg) => {
+			// 			await msg.react("🚨");
+			// 			await msg.react("💤");
+			// 		});
+			// else
+			// 	(await client.channels.fetch(targetChannelId2))
+			// 		.send("🚨 The Man has... vanished?! 🗿⁉️")
+			// 		.then(async (msg) => {
+			// 			await msg.react("🚨");
+			// 			await msg.react("⁉️");
+			// 		});
+			else
 				(await client.channels.fetch(targetChannelId2))
 					.send("🚨 The Man is offline. 🗿💤")
 					.then(async (msg) => {
 						await msg.react("🚨");
 						await msg.react("💤");
 					});
-			else
-				(await client.channels.fetch(targetChannelId2))
-					.send("🚨 The Man has... vanished?! 🗿⁉️")
-					.then(async (msg) => {
-						await msg.react("🚨");
-						await msg.react("⁉️");
-					});
+
 			lastPresenceUpdated = Date.now();
 		} catch (e) {
 			console.error(e);
