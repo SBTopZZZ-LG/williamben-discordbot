@@ -99,6 +99,7 @@ client.once("ready", async () => {
 	// (await client.channels.fetch(targetChannelId2)).send(`I must notify fellow users about <@${targetUserId}>'s presence. After all, he is The Man, right?'`).then(msg => msg.react('👍'));
 
 	let lastPresenceUpdated = 0;
+	let lastPresenceState = "";
 	client.on("presenceUpdate", async (oldPresence, newPresence) => {
 		try {
 			// if someone else has updated their status, just return
@@ -112,12 +113,14 @@ client.once("ready", async () => {
 			if (Date.now() - lastPresenceUpdated < presenceUpdateMinDuration)
 				return;
 
-			if (newPresence.status === "online" || newPresence.status === "dnd" || newPresence.status === "idle" || newPresence.status === "invisible")
+			if ((newPresence.status === "online" || newPresence.status === "dnd" || newPresence.status === "idle" || newPresence.status === "invisible") && lastPresenceState !== "online") {
+				lastPresenceState = "online";
 				(await client.channels.fetch(targetChannelId2))
 					.send("🚨 The Man is online. 🗿")
 					.then(async (msg) => {
 						await msg.react("🚨");
 					});
+			}
 			// else if (newPresence.status === "dnd")
 			// 	(await client.channels.fetch(targetChannelId2))
 			// 		.send("🚨 The Man is online but DnD... 🗿👍")
@@ -139,13 +142,15 @@ client.once("ready", async () => {
 			// 			await msg.react("🚨");
 			// 			await msg.react("⁉️");
 			// 		});
-			else
+			else if (lastPresenceState !== "offline") {
+				lastPresenceState = "offline";
 				(await client.channels.fetch(targetChannelId2))
 					.send("🚨 The Man is offline. 🗿💤")
 					.then(async (msg) => {
 						await msg.react("🚨");
 						await msg.react("💤");
 					});
+			}
 
 			lastPresenceUpdated = Date.now();
 		} catch (e) {
