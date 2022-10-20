@@ -120,6 +120,8 @@ client.once("ready", async () => {
 					.then(async (msg) => {
 						await msg.react("🚨");
 					});
+
+				lastPresenceUpdated = Date.now();
 			}
 			// else if (newPresence.status === "dnd")
 			// 	(await client.channels.fetch(targetChannelId2))
@@ -150,9 +152,9 @@ client.once("ready", async () => {
 						await msg.react("🚨");
 						await msg.react("💤");
 					});
-			}
 
-			lastPresenceUpdated = Date.now();
+				lastPresenceUpdated = Date.now();
+			}
 		} catch (e) {
 			console.error(e);
 		}
