@@ -62,6 +62,7 @@ let to = setTimeout(() => exec("kill 1", () => { }), discordLoginTimeout);
 const wbb_send = /^send *(?<channelId>\d+) *"(?<message>.+)" *$/;
 const wbb_sendreply =
 	/^sendreply *(?<channelId>\d+) *(?<replyTo>\d+) *"(?<message>.+)" *$/;
+const wbb_edit = /^edit *(?<channelId>\d+) *(?<messageId>\d+) *"(?<message>.+)" *$/;
 
 // Bot Commands
 const wbb_help = /^wbb! *help *$/;
@@ -632,6 +633,16 @@ client.once("ready", async () => {
 									message
 								)
 							);
+					} catch (e) {
+						console.error("Dev error", e);
+					}
+				} else if (wbb_edit.test(mc.content)) {
+					try {
+						const { channelId, messageId, message } = evalRegex(wbb_edit, mc.content);
+
+						const chnl = await client.channels.fetch(channelId);
+						const msg = await chnl.messages.fetch(messageId);
+						await msg.edit(message);
 					} catch (e) {
 						console.error("Dev error", e);
 					}
