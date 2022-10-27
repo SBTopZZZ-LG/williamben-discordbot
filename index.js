@@ -29,7 +29,6 @@ if (!targetUserId || !targetChannelId || !targetChannelId2) {
 }
 const presenceUpdateMinDuration = 20000; // 20 seconds
 const discordLoginTimeout = 60000; // 1 minute
-const facts = require("./src/Configs/facts").facts;
 const catchText = require("./src/Configs/catches.json").catches;
 
 // Sleep
@@ -38,18 +37,6 @@ const sleep = require("./src/Utils/sleep");
 // Setup Express Routes
 const app = require("./src/Scripts/express")(PORT);
 app.use(require("./src/Routes/home"));
-app.use(
-	require("./src/Routes/post/fact")(async () => {
-		try {
-			(await client.channels.fetch(targetChannelId)).send(
-				`<@${targetUserId}>, Here's a fact for you!\n${facts[Math.floor(Math.random() * facts.length)]
-				}`
-			);
-		} catch (e) {
-			console.error(e);
-		}
-	})
-);
 app.use(require("./src/Routes/util/nq"));
 app.use(require("./src/Routes/util/qs"));
 app.use(require("./src/Routes/util/toh"));
