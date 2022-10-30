@@ -279,6 +279,9 @@ client.once("ready", async () => {
 
 		if (mc.channel.type === "dm") return;
 
+		if (mc.mentions.has(client.user))
+			return mc.channel.send("accha");
+
 		if (wbb_help.test(mc.content)) {
 			try {
 				mc.channel.send({
